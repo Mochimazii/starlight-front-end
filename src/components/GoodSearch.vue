@@ -16,7 +16,7 @@
     </h1>
 
     <v-text-field
-        v-model="searchWord"
+        v-model="KeyWord"
         placeholder="搜索..."
         hint="键入物品名称后 Enter键搜索"
         persistent-hint
@@ -41,14 +41,22 @@ export default {
   name: "GoodSearch",
   data(){
     return {
-      searchWord:''
+      KeyWord:''
     }
+  },
+  created() {
+    this.KeyWord = this.$store.state.goodKeyWord
   },
   methods:{
     search(){
-      console.log("搜索一下")
+      this.$store.commit('SET_GoodKeyWord',this.KeyWord)
     }
-  }
+  },
+  computed:{
+    goodKeyWord(){
+      return this.$store.state.goodKeyWord
+    }
+  },
 }
 </script>
 

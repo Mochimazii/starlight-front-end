@@ -2,6 +2,7 @@
   <v-app
     id="app"
     :style="{'background':'#fdfdf6'}"
+    v-if="isRouterAlive"
   >
     <UserBar v-if="userRight === 'user'"/>
     <AdminBar v-else-if="userRight === 'admin'"/>
@@ -29,12 +30,41 @@ export default {
     AdminBar
   },
   data: () => ({
-    //
+    isRouterAlive:true
   }),
   computed: {
     userRight (){
       return this.$store.state.userRight
     }
+  },
+  methods:{
+    reload(){
+      this.isRouterAlive=false
+      this.$nextTick(function (){
+        this.isRouterAlive=true
+      })
+    }
+  },
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
+  created() {
+    window.addEventListener("beforeunload",() => {
+      sessionStorage.setItem("stateInfo",JSON.stringify(this.$store.state))
+    })
+
+    if(sessionStorage.getItem("stateInfo")){
+      this.$store.replaceState(
+          Object.assign(
+              {},
+              this.$store.state,
+              JSON.parse(sessionStorage.getItem("stateInfo"))
+          )
+      )
+    }
+
   }
 };
 </script>

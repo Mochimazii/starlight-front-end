@@ -48,7 +48,7 @@
               v-if="!route.meta.inGroup"
               :key="route.name"
               link
-              :to="{path: route.path}"
+              :to="{path:route.path}"
               class="listItem"
               active-class="listItemActive font-weight-bold white--text"
           >
@@ -78,7 +78,7 @@
             <v-list-item
                 v-if="route.meta.inGroup === true"
                 :key="route.name"
-                :to="{name: route.name}"
+                :to="{path:route.path}"
                 exact
                 link
                 class="listItem"
@@ -208,7 +208,7 @@ export default {
     },
     logOut(){
       this.$store.dispatch('logOut')
-      this.$router.push('Login')
+      this.$router.replace({name:'Login'})
     }
   },
 

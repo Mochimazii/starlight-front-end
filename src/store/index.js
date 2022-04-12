@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     userToken:'',
     userRight:'',// admin/user
+    goodClass:'',//零食/书籍/工具/其他
+    goodKeyWord:'',
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -21,7 +23,15 @@ export default new Vuex.Store({
         state.userToken = ''
         state.userRight = ''
         sessionStorage.clear()
-    }
+    },
+    SET_GoodClass: (state,goodClass) => {
+        state.goodClass = goodClass
+        sessionStorage.setItem("goodClass",goodClass)
+    },
+    SET_GoodKeyWord: (state,goodKeyWord) => {
+        state.goodKeyWord = goodKeyWord
+        sessionStorage.setItem("goodKeyWord",goodKeyWord)
+    },
   },
   actions: {
     login({ commit },loginForm) {

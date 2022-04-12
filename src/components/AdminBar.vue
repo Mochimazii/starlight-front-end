@@ -143,13 +143,12 @@ export default {
     },
     logOut(){
       this.$store.dispatch('logOut')
-      this.$router.push('Login')
+      this.$router.push({name:'Login'})
     }
   },
 
   beforeMount() {
     this.routes = this.$router.options.routes.filter(el => el.category === 'admin');
-    console.log(this.routes)
   }
 }
 </script>

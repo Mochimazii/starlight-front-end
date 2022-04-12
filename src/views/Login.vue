@@ -63,7 +63,7 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
-            @click="mocklogin"
+            @click="login"
             color="blue-grey lighten-3"
         >
           登录
@@ -95,7 +95,6 @@
 
 <script>
 export default {
-
   data:() => ({
     name: 'Login',
     text: '消息提醒',
@@ -108,8 +107,8 @@ export default {
       v => !!v || '密码不可为空',
     ],
     loginForm: {
-      userAccount: '',
-      password: '',
+      userAccount: 'keikeiasd',
+      password: '123456',
       isAdmin:false
     },
   }),
@@ -117,8 +116,6 @@ export default {
   methods:{
     login (){
       if(this.$refs.loginForm.validate()){
-        console.log("检验合法")
-        console.log(this.loginForm)
         //不同角色登录（待处理）
         this.$store.dispatch('login',this.loginForm)
             .then(res => {
@@ -126,29 +123,19 @@ export default {
               this.text = res
               this.snackbar = true
               if(this.loginForm.isAdmin){
-                this.$router.push('/admin')
+                this.$router.push('admin')
               }else {
-                this.$router.push('/index')
+                this.$router.push('shop')
               }
 
             })
             .catch(error => {
-              console.log(error)
+              console.log("登录失败"+error)
               this.text = error
               this.snackbar = true
             })
         //弹小窗处理登录失败 登录成功等情形
       }
-    },
-    mocklogin (){
-        if(this.loginForm.isAdmin === true){
-          this.$store.commit('SET_AUTH','admin')
-          this.$router.push('admin')
-        }else {
-          this.$store.commit('SET_AUTH','user')
-          this.$router.push('shop')
-
-        }
     },
 
     register (){

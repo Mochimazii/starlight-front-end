@@ -2,7 +2,7 @@
   <div class="mt-4">
     <v-row>
       <v-col v-for="good in goods" cols="12" sm="6" md="4" lg="3">
-        <GoodsCard :good="good"/>
+        <GoodSettingCard :good="good"/>
       </v-col>
     </v-row>
     <v-row v-if="this.page !== null && this.page.pages !== 0" justify="center">
@@ -20,15 +20,15 @@
       </v-col>
     </v-row>
   </div>
-
 </template>
 
 <script>
-import GoodsCard from "@/components/GoodsCard";
+import GoodSettingCard from "@/components/GoodSettingCard";
+
 export default {
-  name: "GoodsView",
+  name: "Pulled",
   components:{
-    GoodsCard,
+    GoodSettingCard,
   },
   data(){
     return{
@@ -38,15 +38,14 @@ export default {
     }
   },
   created() {
-    this.getGoodsPage(1,this.goodClass,this.goodKeyWord)
+    this.getGoodsPage(1,0)
   },
   methods:{
-    getGoodsPage(current,goodClass,keyWord){
-      this.$axios.get('good/class',{
+    getGoodsPage(current,goodStage){
+      this.$axios.get('good/stage',{
         params:{
           nextPage:current,
-          goodClass:goodClass,
-          keyWord:keyWord
+          goodStage:goodStage
         }
       })
           .then(res => {
@@ -56,43 +55,17 @@ export default {
           })
     },
     pageChange(currentPage){
-      console.log("pageNum"+currentPage)
-      this.getGoodsPage(currentPage,this.goodClass,this.goodKeyWord)
+      this.getGoodsPage(currentPage,0)
     },
     prevPage(){
       let currentPage = this.page.current
-      this.getGoodsPage(currentPage,this.goodClass,this.goodKeyWord)
+      this.getGoodsPage(currentPage,0)
     },
     nextPage(){
       let currentPage = this.page.current
-      let goodKeyWord = this.goodKeyWord
-      this.getGoodsPage(currentPage,this.goodClass,goodKeyWord)
+      this.getGoodsPage(currentPage,0)
     },
   },
-  computed:{
-    goodClass(){
-      return this.$store.state.goodClass
-    },
-    goodKeyWord(){
-      return this.$store.state.goodKeyWord
-    }
-  },
-  watch:{
-    goodClass:{
-      handler(newClass,oldClass){
-        let goodKeyWord = this.goodKeyWord
-        this.getGoodsPage(1,newClass,this.goodKeyWord)
-      }
-    },
-    goodKeyWord:{
-      handler(newKeyWord,oldKeyWord){
-        console.log("监听到goodkeyword",newKeyWord)
-        let goodKeyWord = this.goodKeyWord
-        let goodClass = this.goodClass
-        this.getGoodsPage(1,newKeyWord,this.goodKeyWord)
-      }
-    }
-  }
 }
 </script>
 

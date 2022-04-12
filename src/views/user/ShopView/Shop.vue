@@ -34,9 +34,7 @@ export default {
 
   }),
   methods:{
-    dian(){
-      console.log("卡片点击")
-    }
+
   }
 }
 </script>

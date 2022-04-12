@@ -3,7 +3,7 @@
     <v-img
         :src="good.goodCover"
         height="200px"
-        @click="goToDetail"
+        @click="editDio"
     >
       <v-app-bar
           flat
@@ -66,34 +66,33 @@
       <v-spacer/>
       <span>还剩{{ good.goodStore }}个</span>
     </v-card-title>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-          color="indigo lighten-2"
-          text
-          @click.stop="WantIt">
-        <v-icon>
-          mdi-hand-back-right-outline
-        </v-icon>
-        想要
-      </v-btn>
+<!--    <v-card-actions>-->
+<!--      <v-spacer></v-spacer>-->
+<!--      <v-btn-->
+<!--          color="indigo lighten-2"-->
+<!--          text-->
+<!--          @click.stop="edit">-->
+<!--        <v-icon>-->
+<!--          mdi-cog-->
+<!--        </v-icon>-->
+<!--        编辑-->
+<!--      </v-btn>-->
 
-    </v-card-actions>
-    <BuyDio :show-dio="showBuyDio" @outsider="showBuyDio = false" :good="this.good"/>
+<!--    </v-card-actions>-->
+    <GoodSetDio :show-dio="showEditDio" @outsider="showEditDio = false" opt="update" :good="good"/>
   </v-card>
-
 </template>
 
 <script>
-import BuyDio from "@/components/BuyDio";
+import GoodSetDio from "@/components/GoodSetDio";
 export default {
-  name: "GoodsCard",
+  name: "GoodSettingCard",
   components:{
-    BuyDio,
+    GoodSetDio
   },
   data(){
     return{
-      showBuyDio:false,
+      showEditDio:false,
     }
   },
   props: {
@@ -105,8 +104,8 @@ export default {
           goodName:"从入门到入土",
           goodCover:"https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
           goodClass:"书籍",
-          goodOwnerAvatar:"https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg",
-          goodOwnerName:"神乐光",
+          goodStage:1,
+          goodDate:"2022-4-1",
           goodTag:["无任何拆修","全新正品"],
           goodPrice:25
         }
@@ -114,17 +113,10 @@ export default {
     }
   },
   methods:{
-    goToDetail(){
-      console.log(this.good)
-      this.$router.push({name:'GoodsDetail',params:{ goodsId:this.good.goodId ,good:this.good}})
+    editDio(){
+      console.log("编辑商品")
+      this.showEditDio = true
     },
-    WantIt(){
-      console.log("我想要")
-      this.showBuyDio = true
-    },
-    addToCollection(){
-      console.log("加入收藏")
-    }
   }
 }
 </script>

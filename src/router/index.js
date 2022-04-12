@@ -6,7 +6,9 @@ import Collection from "@/views/user/Collection";
 import AddressManager from "@/views/user/AddressManager";
 import Message from "@/views/user/Message";
 import Setting from "@/views/user/Setting";
-import Publish from "@/views/user/DealView/Publish";
+import Publish from "@/views/user/DealView/PublishView/Publish";
+import Selling from "@/views/user/DealView/PublishView/Selling";
+import Pulled from "@/views/user/DealView/PublishView/Pulled";
 import Purchased from "@/views/user/DealView/Purchased";
 import Sold from "@/views/user/DealView/Sold";
 import OverView from "@/views/admin/OverView";
@@ -53,6 +55,7 @@ const routes = [
         path:':goodsId',
         name:"GoodsDetail",
         component:GoodsDetail,
+        props:true
       }
     ]
   },
@@ -67,18 +70,18 @@ const routes = [
       inGroup:false,
     },
   },
-  {
-    path:'/collection',
-    name:'collection',
-    component: Collection,
-
-    category:'user',
-    meta:{
-      icon:"mdi-star-box",
-      title:"我的收藏",
-      inGroup:false,
-    },
-  },
+  // {
+  //   path:'/collection',
+  //   name:'collection',
+  //   component: Collection,
+  //
+  //   category:'user',
+  //   meta:{
+  //     icon:"mdi-star-box",
+  //     title:"我的收藏",
+  //     inGroup:false,
+  //   },
+  // },
   {
     path:'/address',
     name:'address',
@@ -111,6 +114,18 @@ const routes = [
       title:"我发布的",
       inGroup:true,
     },
+    children: [
+      {
+        path: '',
+        name: "SellingGoods",
+        component: Selling,
+      },
+      {
+        path: 'pulled',
+        name: "PulledGoods",
+        component: Pulled,
+      },
+    ]
   },
   {
     path:'/purchased',

@@ -68,7 +68,6 @@ export default {
   },
   data () {
     return {
-      activeCate:'',
       categories:[
         {
           title:'零食',
@@ -95,11 +94,18 @@ export default {
   },
   methods: {
     selectCate(title){
+      let Cate
       if(this.activeCate === title){
-        this.activeCate = ''
+        Cate = null
       }else {
-        this.activeCate = title
+        Cate = title
       }
+      this.$store.commit('SET_GoodClass',Cate)
+    }
+  },
+  computed:{
+    activeCate(){
+      return this.$store.state.goodClass
     }
   }
 }
