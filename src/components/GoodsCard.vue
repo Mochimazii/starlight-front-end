@@ -71,14 +71,55 @@
       <v-btn
           color="indigo lighten-2"
           text
-          @click.stop="WantIt">
+          @click.stop="WantIt"
+          v-if="userRight === 'user'"
+      >
         <v-icon>
           mdi-hand-back-right-outline
         </v-icon>
         想要
       </v-btn>
 
+      <v-btn
+          color="indigo lighten-2"
+          text
+          @click.stop="DownIt"
+          v-else
+      >
+        <v-icon>
+          mdi-wrench-outline
+        </v-icon>
+        下架
+      </v-btn>
+
     </v-card-actions>
+
+    <v-dialog max-width="800px" v-model="confirmDown">
+      <v-card>
+        <v-alert
+            border="left"
+            outlined
+            color="orange darken-3"
+            class="text-start mb-0"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              确定要下架商品<strong>{{good.goodName}}</strong>吗？
+            </v-col>
+            <v-col class="shrink">
+              <v-btn
+                  color="success"
+                  @click="downConfirm"
+              >
+                确认
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
+      </v-card>
+
+    </v-dialog>
+
     <BuyDio :show-dio="showBuyDio" @outsider="showBuyDio = false" :good="this.good"/>
   </v-card>
 
@@ -88,12 +129,15 @@
 import BuyDio from "@/components/BuyDio";
 export default {
   name: "GoodsCard",
+  inject:["reload"],
   components:{
     BuyDio,
+
   },
   data(){
     return{
       showBuyDio:false,
+      confirmDown:false,
     }
   },
   props: {
@@ -116,14 +160,32 @@ export default {
   methods:{
     goToDetail(){
       console.log(this.good)
-      this.$router.push({name:'GoodsDetail',params:{ goodsId:this.good.goodId ,good:this.good}})
+      if(this.userRight === "user"){
+        this.$router.push({name:'GoodsDetail',params:{ goodsId:this.good.goodId ,good:this.good}})
+      }
+
     },
     WantIt(){
       console.log("我想要")
       this.showBuyDio = true
     },
-    addToCollection(){
-      console.log("加入收藏")
+    DownIt(){
+      console.log("下架这个商品")
+      this.confirmDown = true
+    },
+    downConfirm(){
+      let goodId = this.good.goodId
+      this.$axios.get("good/updatestage",{
+        params:{
+          goodId:goodId,
+          goodStage:0
+        }
+      }).then(res => this.reload())
+    }
+  },
+  computed:{
+    userRight(){
+      return this.$store.state.userRight
     }
   }
 }

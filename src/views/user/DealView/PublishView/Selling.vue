@@ -48,7 +48,6 @@ export default {
         }
       })
           .then(res => {
-            console.log(res)
             this.goods = res.data.data.records
             this.page = res.data.data
           })

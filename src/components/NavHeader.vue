@@ -17,7 +17,7 @@
     </v-img>
 
     <BackButton
-        :name="this.name"
+        :name="this.title"
         :active="this.$route.name == 'GoodsDetail'"
         class="my-2"
         @back="goBack"
@@ -32,6 +32,9 @@ export default {
   name: "NavHeader",
   components:{
     BackButton,
+  },
+  props:{
+    title:String
   },
   data:() => ({
     name:"二手市场",

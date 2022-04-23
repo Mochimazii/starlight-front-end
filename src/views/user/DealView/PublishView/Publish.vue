@@ -67,14 +67,6 @@ export default {
       ],
     }
   },
-  beforeMount() {
-
-  },
-  methods:{
-    alertGoodDio(){
-
-    }
-  }
 }
 </script>
 

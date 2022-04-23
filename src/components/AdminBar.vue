@@ -47,7 +47,7 @@
               v-if="!route.meta.inGroup"
               :key="route.name"
               link
-              :to="{name: route.name}"
+              :to="{path: route.path}"
               class="listItem"
               active-class="listItemActive font-weight-bold white--text"
           >

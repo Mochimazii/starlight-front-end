@@ -67,6 +67,7 @@
                   rounded
                   x-large
                   color="success"
+                  @click="openWinbar"
               >
                 感兴趣
                 <v-icon right>
@@ -90,6 +91,7 @@
                   rounded
                   large
                   color="error"
+                  @click="Buy"
               >
                 立即购买
               </v-btn>
@@ -114,13 +116,18 @@
           {{ this.good.goodDes }}
         </p>
       </v-card>
+      <BuyDio :show-dio="showBuyDio" @outsider="showBuyDio = false" :good="this.good"/>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import BuyDio from "@/components/BuyDio";
 export default {
   name: "GoodsDetail",
+  components:{
+    BuyDio
+  },
   props: {
     good:{
       type:Object,
@@ -132,11 +139,10 @@ export default {
   data () {
     return {
       col:true,
+      showBuyDio:false,
     }
   },
   created() {
-    console.log(this.goodsId)
-    console.log(this.good)
     if(this.good == null){
       this.getGoodById(this.goodsId)
     }
@@ -149,6 +155,30 @@ export default {
           console.log(res)
           this.good = res.data.data
         })
+    },
+    Buy(){
+      console.log("Buy")
+      this.showBuyDio = true
+    },
+    openWinbar(){
+      console.log(this.good)
+      console.log(this.userId)
+      if(this.userId !== this.good.userId){
+        this.$axios.get("winbar/open",{
+          params:{
+            userId:this.userId,
+            receiveUserId:this.good.userId
+          }
+        }).then(res => {
+          this.$router.push({name:'message'})
+        })
+      }
+
+    }
+  },
+  computed:{
+    userId(){
+      return this.$store.state.userId
     }
   }
 }

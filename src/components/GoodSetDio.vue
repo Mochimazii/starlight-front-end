@@ -69,6 +69,7 @@
                     prepend-icon=""
                     show-size
                     hide-details="auto"
+                    :rules="fileRules"
                     @change="uploadImg($event)"
                 >
 
@@ -128,14 +129,14 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                v-if="good.goodStage === 1"
+                v-if="goodForm.goodStage === 1"
                 class="error mt-3"
                 @click="goodDown"
             >
               下架
             </v-btn>
             <v-btn
-                v-if="good.goodStage === 0"
+                v-if="goodForm.goodStage === 0"
                 class="error mt-3"
                 @click="goodUp"
             >
@@ -180,7 +181,7 @@ export default {
         goodCover:"",
         goodPrice:0,
         goodStage:-1,
-        goodDate:"2022-4-2",
+        goodDate:"",
         goodDes:"",
         userId:'',
         goodTagList:[],
@@ -193,6 +194,9 @@ export default {
         v => !!v || '商品数量是必须的',
         v => v > 0 && v < 100 || '商品数量在1-99之间',
       ],
+      fileRules:[
+          file => file.size < 1048576 || "文件大小小于1MB"
+      ]
     }
   },
   mounted() {
@@ -234,7 +238,6 @@ export default {
     },
     addGood(){
       let goodForm = this.generateGoodForm()
-      console.log("添加商品",goodForm)
       if(this.$refs.VgoodForm.validate()){
         this.$axios.post("good/create",goodForm,{
           headers:{
@@ -247,7 +250,6 @@ export default {
     },
     updateGood(){
       let goodForm = this.generateGoodForm()
-      console.log("更新商品",goodForm)
       if(this.$refs.VgoodForm.validate()){
         this.$axios.post("good/update",goodForm,{
           headers:{
@@ -276,7 +278,7 @@ export default {
       //Tag数组
       for (let i=0,len=this.goodForm.goodTagList.length;i<len;i++){
         let goodTag = this.goodForm.goodTagList[i]
-        let goodId = this.good.goodId
+        let goodId = this.goodForm.goodId
         goodForm.append("goodTagList["+i+"].tagId",goodTag.tagId?goodTag.tagId:null)
         goodForm.append("goodTagList["+i+"].tagContent",goodTag.tagContent)
         goodForm.append("goodTagList["+i+"].goodId",goodId?goodId:-1)

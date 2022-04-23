@@ -2,22 +2,29 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import adminIndex from "@/views/admin/adminIndex";
-import Collection from "@/views/user/Collection";
 import AddressManager from "@/views/user/AddressManager";
 import Message from "@/views/user/Message";
 import Setting from "@/views/user/Setting";
 import Publish from "@/views/user/DealView/PublishView/Publish";
 import Selling from "@/views/user/DealView/PublishView/Selling";
 import Pulled from "@/views/user/DealView/PublishView/Pulled";
-import Purchased from "@/views/user/DealView/Purchased";
-import Sold from "@/views/user/DealView/Sold";
+import Purchased from "@/views/user/DealView/PurchasedView/Purchased";
+import Sold from "@/views/user/DealView/SoldView/Sold";
 import OverView from "@/views/admin/OverView";
 import UserManager from "@/views/admin/UserManager";
+import Complaining from "@/views/admin/ComplaintView/Complaining";
+import Complained from "@/views/admin/ComplaintView/Complained";
 import GoodsManager from "@/views/admin/GoodsManager";
-import ComplaintManager from "@/views/admin/ComplaintManager";
+import ComplaintManager from "@/views/admin/ComplaintView/ComplaintManager";
 import Shop from "@/views/user/ShopView/Shop";
 import GoodsView from "@/views/user/ShopView/GoodsView";
 import GoodsDetail from "@/views/user/ShopView/GoodsDetail";
+import Sending from "@/views/user/DealView/PurchasedView/Sending";
+import Receiving from "@/views/user/DealView/PurchasedView/Receiving";
+import Done from "@/views/user/DealView/PurchasedView/Done";
+import WaitReceive from "@/views/user/DealView/SoldView/WaitReceive";
+import WaitSend from "@/views/user/DealView/SoldView/WaitSend";
+import Complete from "@/views/user/DealView/SoldView/Complete";
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,11 +34,11 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  {
-    path: '/admin',
-    name: 'admin',
-    component: adminIndex
-  },
+  // {
+  //   path: '/admin',
+  //   name: 'admin',
+  //   component: adminIndex
+  // },
   {
     path:'/shop',
     name:'shop',
@@ -70,18 +77,6 @@ const routes = [
       inGroup:false,
     },
   },
-  // {
-  //   path:'/collection',
-  //   name:'collection',
-  //   component: Collection,
-  //
-  //   category:'user',
-  //   meta:{
-  //     icon:"mdi-star-box",
-  //     title:"我的收藏",
-  //     inGroup:false,
-  //   },
-  // },
   {
     path:'/address',
     name:'address',
@@ -137,6 +132,23 @@ const routes = [
       title:"我购买的",
       inGroup:true,
     },
+    children: [
+      {
+        path: '',
+        name: "Sending",
+        component: Sending
+      },
+      {
+        path: 'receive',
+        name: "Receiving",
+        component: Receiving
+      },
+      {
+        path:'done',
+        name: "Done",
+        component: Done
+      }
+    ]
   },
   {
     path:'/sold',
@@ -148,6 +160,23 @@ const routes = [
       title:"我卖出的",
       inGroup:true,
     },
+    children: [
+      {
+        path: '',
+        name: "WaitSend",
+        component: WaitSend
+      },
+      {
+        path: 'waitreceive',
+        name: "WaitReceive",
+        component: WaitReceive
+      },
+      {
+        path:'complete',
+        name: "Complete",
+        component: Complete
+      }
+    ]
   },
   {
     path: '/overview',
@@ -159,16 +188,16 @@ const routes = [
       title: "总览",
     }
   },
-  {
-    path: '/user',
-    name:'user',
-    component: UserManager,
-    category: 'admin',
-    meta:{
-      icon: "mdi-chess-pawn",
-      title: "用户管理",
-    }
-  },
+  // {
+  //   path: '/user',
+  //   name:'user',
+  //   component: UserManager,
+  //   category: 'admin',
+  //   meta:{
+  //     icon: "mdi-chess-pawn",
+  //     title: "用户管理",
+  //   }
+  // },
   {
     path: '/goodsManager',
     name:'goodsManager',
@@ -187,7 +216,19 @@ const routes = [
     meta:{
       icon: "mdi-chess-knight",
       title: "申诉管理",
-    }
+    },
+    children: [
+      {
+        path: '',
+        name: 'Complaining',
+        component: Complaining,
+      },
+      {
+        path: 'complained',
+        name: 'Complained',
+        component: Complained,
+      },
+    ]
   },
 ]
 

@@ -81,7 +81,7 @@ export default {
     goodClass:{
       handler(newClass,oldClass){
         let goodKeyWord = this.goodKeyWord
-        this.getGoodsPage(1,newClass,this.goodKeyWord)
+        this.getGoodsPage(1,newClass,goodKeyWord)
       }
     },
     goodKeyWord:{
@@ -89,7 +89,7 @@ export default {
         console.log("监听到goodkeyword",newKeyWord)
         let goodKeyWord = this.goodKeyWord
         let goodClass = this.goodClass
-        this.getGoodsPage(1,newKeyWord,this.goodKeyWord)
+        this.getGoodsPage(1,goodClass,goodKeyWord)
       }
     }
   }

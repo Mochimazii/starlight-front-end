@@ -28,6 +28,7 @@
         autocomplete="off"
         style="flex-shrink: 0;width: 100%;"
         clearable
+        @blur="search"
         @keyup.enter="search"
     >
 

@@ -97,11 +97,11 @@ export default {
   data(){
     return{
       address:{
-        addressId:123123,
+        addressId:null,
         addressStatus:1,
-        addressConsignee:"测试",
-        addressDetail:"宿舍楼1号楼，410层",
-        addressTel:"13666861316"
+        addressConsignee:"",
+        addressDetail:"",
+        addressTel:""
       },
       addressTemp:{},
       addressList:[],

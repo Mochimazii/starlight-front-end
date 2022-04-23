@@ -42,7 +42,7 @@
               </v-col>
               <v-col cols="4" class="d-flex justify-center align-self-center">
                 <v-text-field
-                    :label="user.userName"
+                    :label="oldUser.userName"
                     v-model="user.userName"
                     outlined
                     rounded
@@ -56,7 +56,7 @@
               </v-col>
               <v-col cols="4" class="d-flex justify-center align-self-center">
                 <v-text-field
-                    :label="user.userEmail"
+                    :label="oldUser.userEmail"
                     v-model="user.userEmail"
                     outlined
                     rounded
@@ -70,7 +70,7 @@
               </v-col>
               <v-col cols="4" class="d-flex justify-center align-self-center">
                 <v-text-field
-                    :label="user.userPhone"
+                    :label="oldUser.userPhone"
                     v-model="user.userPhone"
                     outlined
                     rounded
@@ -84,7 +84,7 @@
               </v-col>
               <v-col cols="4" class="d-flex justify-center align-self-center">
                 <v-text-field
-                    :label="user.userSchool"
+                    :label="oldUser.userSchool"
                     v-model="user.userSchool"
                     outlined
                     rounded
@@ -98,7 +98,7 @@
               </v-col>
               <v-col cols="4" class="d-flex justify-center align-self-center">
                 <v-text-field
-                    :label="user.userFaculty"
+                    :label="oldUser.userFaculty"
                     v-model="user.userFaculty"
                     outlined
                     rounded
@@ -194,6 +194,7 @@ export default {
     return {
       dialog:false,
       image:null,
+      oldUser:{},
       user:{
         userId:0,
         userAvatar:"https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
@@ -228,7 +229,9 @@ export default {
     //资料更新，头像更新
       this.$axios.get('user/info')
         .then(res => {
+          console.log(res.data.data)
           this.user = res.data.data
+          this.oldUser = this.$_.cloneDeep(res.data.data)
         })
   },
   methods:{
@@ -267,7 +270,6 @@ export default {
             "Content-Type":"multipart/form-data"
           }
         }).then(res => {
-          console.log("头像更新："+res.data.data)
           this.dialog = false
           this.reload()
         })
@@ -277,7 +279,6 @@ export default {
     uploadProfile(){
       console.log(this.user)
       this.$axios.post('user/updateInfo',this.user).then(res => {
-        console.log(res.data)
         this.reload()
       })
     }

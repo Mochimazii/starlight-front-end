@@ -3,7 +3,7 @@
     <v-container class="mt-3" style="width: 80vw">
       <v-row>
         <v-col cols="12">
-          <NavHeader/>
+          <NavHeader title="二手市场"/>
         </v-col>
       </v-row>
       <v-row v-if="this.$route.name === 'GoodsView'">

@@ -6,6 +6,15 @@ import axios from './api/index'
 import vuetify from './plugins/vuetify'
 import _ from 'lodash'
 import qs from 'qs'
+import dayjs from "dayjs";
+import IsSameOrBefore from "dayjs/plugin/isSameOrBefore"
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
+import JwChat from 'jwchat';
+
+Vue.use(JwChat)
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 axios.interceptors.request.use(config => {
@@ -18,6 +27,8 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$_ = _;
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs;
+dayjs.extend(IsSameOrBefore)
+Vue.prototype.dayjs = dayjs;
 Vue.config.productionTip = false
 require('./mock/index')
 

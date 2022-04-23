@@ -107,7 +107,7 @@ export default {
       v => !!v || '密码不可为空',
     ],
     loginForm: {
-      userAccount: 'keikeiasd',
+      userAccount: 'keikeiaaa',
       password: '123456',
       isAdmin:false
     },
@@ -123,7 +123,7 @@ export default {
               this.text = res
               this.snackbar = true
               if(this.loginForm.isAdmin){
-                this.$router.push('admin')
+                this.$router.push('overview')
               }else {
                 this.$router.push('shop')
               }
@@ -139,7 +139,23 @@ export default {
     },
 
     register (){
-      console.log(this.$store.state.userToken)
+      if(this.$refs.loginForm.validate()){
+        const loginDto = {
+          userAccount: this.loginForm.userAccount,
+          userPassword: this.loginForm.password
+        }
+        this.$store.dispatch('register',loginDto)
+            .then(res => {
+              this.text = res
+              this.snackbar = true
+              this.$router.push({name:'set'})
+            })
+            .catch(error => {
+              this.text = error
+              this.snackbar = true
+            })
+      }
+
     }
   }
 }
