@@ -250,15 +250,14 @@ export default {
     },
     updateGood(){
       let goodForm = this.generateGoodForm()
-      if(this.$refs.VgoodForm.validate()){
-        this.$axios.post("good/update",goodForm,{
-          headers:{
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
-          this.reload()
-        })
-      }
+      console.log("更新商品",goodForm)
+      this.$axios.post("good/update",goodForm,{
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(res => {
+        this.reload()
+      })
     },
     generateGoodForm(){
       let goodForm = new FormData()
@@ -270,7 +269,7 @@ export default {
       goodForm.append('goodStage',this.goodForm.goodStage)
       goodForm.append('goodDes',this.goodForm.goodDes)
       if(null != this.good){
-        console.log("提醒goodId",this.good)
+        console.log("提醒goodId",this.goodForm)
         goodForm.append('goodId',this.good.goodId)
       }
       //图片单独

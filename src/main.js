@@ -32,6 +32,20 @@ Vue.prototype.dayjs = dayjs;
 Vue.config.productionTip = false
 require('./mock/index')
 
+router.beforeEach((to,from,next) => {
+  const userRight = sessionStorage.getItem("userRight")
+  if(to.name === 'Login' || from.name === 'Login'){
+    next()
+  }else if(to.meta.category !== userRight){
+    store.state.userToken = ''
+    store.state.userRight = ''
+    store.state.userId = ''
+    sessionStorage.clear()
+    next({name:'Login'})
+  }else {
+    next()
+  }
+})
 
 new Vue({
   router,

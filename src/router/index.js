@@ -48,21 +48,28 @@ const routes = [
       icon:"mdi-basket",
       title:"二手市场",
       inGroup:false,
+      category: 'user',
     },
     children:[
       {
         path:'',
         name:"GoodsView",
+        category:'user',
         component:GoodsView,
         meta:{
-          title:"二手市场"
+          title:"二手市场",
+          category: 'user',
         }
       },
       {
         path:':goodsId',
+        category:'user',
         name:"GoodsDetail",
         component:GoodsDetail,
-        props:true
+        props:true,
+        meta: {
+          category: 'user',
+        }
       }
     ]
   },
@@ -75,6 +82,7 @@ const routes = [
       icon:"mdi-cog",
       title:"信息设置",
       inGroup:false,
+      category: 'user'
     },
   },
   {
@@ -86,6 +94,7 @@ const routes = [
       icon:"mdi-castle",
       title:"我的地址",
       inGroup:false,
+      category: 'user',
     },
   },
   {
@@ -97,6 +106,7 @@ const routes = [
       icon:"mdi-chat-outline",
       title:"我的消息",
       inGroup:false,
+      category: 'user',
     },
   },
   {
@@ -107,18 +117,27 @@ const routes = [
     meta:{
       icon:"mdi-purse",
       title:"我发布的",
+      category: 'user',
       inGroup:true,
     },
     children: [
       {
         path: '',
         name: "SellingGoods",
+        category:'user',
         component: Selling,
+        meta: {
+          category: 'user',
+        }
       },
       {
         path: 'pulled',
+        category:'user',
         name: "PulledGoods",
         component: Pulled,
+        meta: {
+          category: 'user',
+        }
       },
     ]
   },
@@ -130,23 +149,36 @@ const routes = [
     meta:{
       icon:"mdi-clipboard-check",
       title:"我购买的",
+      category:'user',
       inGroup:true,
     },
     children: [
       {
         path: '',
         name: "Sending",
-        component: Sending
+        category:'user',
+        component: Sending,
+        meta: {
+          category: 'user',
+        }
       },
       {
         path: 'receive',
         name: "Receiving",
-        component: Receiving
+        category:'user',
+        component: Receiving,
+        meta: {
+          category: 'user',
+        }
       },
       {
         path:'done',
         name: "Done",
-        component: Done
+        category:'user',
+        component: Done,
+        meta: {
+          category: 'user',
+        }
       }
     ]
   },
@@ -158,23 +190,36 @@ const routes = [
     meta:{
       icon:"mdi-currency-usd",
       title:"我卖出的",
+      category: 'user',
       inGroup:true,
     },
     children: [
       {
         path: '',
         name: "WaitSend",
-        component: WaitSend
+        category:'user',
+        component: WaitSend,
+        meta: {
+          category: 'user',
+        }
       },
       {
         path: 'waitreceive',
         name: "WaitReceive",
-        component: WaitReceive
+        category:'user',
+        component: WaitReceive,
+        meta: {
+          category: 'user',
+        }
       },
       {
         path:'complete',
         name: "Complete",
-        component: Complete
+        category:'user',
+        component: Complete,
+        meta: {
+          category: 'user',
+        }
       }
     ]
   },
@@ -185,6 +230,7 @@ const routes = [
     category: 'admin',
     meta:{
       icon: "mdi-chess-king",
+      category: 'admin',
       title: "总览",
     }
   },
@@ -205,6 +251,7 @@ const routes = [
     category: 'admin',
     meta:{
       icon: "mdi-chess-rook",
+      category: 'admin',
       title: "商品管理",
     }
   },
@@ -215,6 +262,7 @@ const routes = [
     category: 'admin',
     meta:{
       icon: "mdi-chess-knight",
+      category: 'admin',
       title: "申诉管理",
     },
     children: [
@@ -222,11 +270,17 @@ const routes = [
         path: '',
         name: 'Complaining',
         component: Complaining,
+        meta: {
+          category: 'admin',
+        }
       },
       {
         path: 'complained',
         name: 'Complained',
         component: Complained,
+        meta: {
+          category: 'admin',
+        }
       },
     ]
   },

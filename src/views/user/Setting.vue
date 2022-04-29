@@ -35,6 +35,16 @@
 
                 </v-file-input>
               </v-col>
+              <v-col cols="2">
+                <v-text-field
+                    label="信誉分"
+                    v-model="user.userCredit"
+                    outlined
+                    readonly
+                    rounded
+                    hide-details
+                ></v-text-field>
+              </v-col>
             </v-row>
             <v-row>
               <v-col cols="1" class="d-flex justify-center align-self-center">
@@ -247,7 +257,6 @@ export default {
             imgBlob = e.target.result
           }
           this.option.img = imgBlob
-          //console.log(this.option.img)
         }
         fr.readAsDataURL(this.image)
       }

@@ -8,6 +8,9 @@
               color="green"
               dark
           >
+            <v-card-title>
+              销售统计一览
+            </v-card-title>
             <v-card-text>
               <v-sheet color="rgba(0, 0, 0, .12)">
                 <v-sparkline
@@ -36,6 +39,10 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="12">
+        </v-col>
+      </v-row>
     </v-container>
 
   </div>
@@ -54,6 +61,12 @@ export default {
         510,
       ],
       labels: [
+        '零食',
+        '书籍',
+        '工具',
+        '其他',
+      ],
+      originLabels:[
         '零食',
         '书籍',
         '工具',
@@ -83,6 +96,9 @@ export default {
       }).then(res => {
         console.log(res)
         this.value = res.data.data
+        for(let i=0;i<this.originLabels.length;i++){
+          this.labels[i] = this.originLabels[i] + this.value[i] + "单"
+        }
       })
     }
   }

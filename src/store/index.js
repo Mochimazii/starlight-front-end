@@ -23,6 +23,7 @@ export default new Vuex.Store({
     },
     SET_AUTH: (state, userRight) => {
         state.userRight = userRight
+        sessionStorage.setItem("userRight",userRight)
     },
     LOG_OUT: (state) => {
         state.userToken = ''

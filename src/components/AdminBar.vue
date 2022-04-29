@@ -96,33 +96,6 @@
       <v-app-bar-title>{{ this.$route.meta.title }}</v-app-bar-title>
       <v-spacer/>
 
-      <v-responsive max-width="260" class="mr-16">
-        <v-text-field
-            flat
-            hide-details
-            solo-inverted
-            placeholder="回车键搜索"
-            prepend-inner-icon="mdi-magnify"
-        ></v-text-field>
-      </v-responsive>
-
-      <v-badge
-          color="red"
-          content="5"
-          bordered
-          overlap
-          offset-x="22"
-          offset-y="22"
-      >
-        <v-btn
-            icon
-        >
-          <v-icon>
-            mdi-bell
-          </v-icon>
-        </v-btn>
-      </v-badge>
-
     </v-app-bar>
   </div>
 
